@@ -3,7 +3,7 @@
  * ALUMNOS:  David Cantuña, Ariel Guevara
  * FECHA DE CREACION: domingo, 30 de octubre de 2022 
  * FECHA DE MOFICIACION: domingo, 30 de octubre de 2022 
- * ENUNCIADO: Creacion de una clase interfaz para el ingreso y validacion de datos tipo int, float, double, string
+ * ENUNCIADO: Creacion de una clases abtractas para el ingreso y validacion de datos tipo int, float, double, string
  ***********************************************************************/
 
 #include <iostream>
