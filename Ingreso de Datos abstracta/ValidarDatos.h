@@ -1,6 +1,6 @@
 /***********************************************************************
  * Module:  Templates.h
- * Author:  Ariel
+ * Author:  Ariel Guevara, David Cantuña
  * Modified: domingo, 30 de octubre de 2022 12:39:07
  * Purpose: Declaration of the class Templates
  ***********************************************************************/
@@ -11,12 +11,13 @@
 class ValidarDatos
 {
 public:
-virtual char* validarEntero(char  const *mensaje)=0;
-virtual char* validarDoubles(char const *mensaje)=0;
-virtual char* validarLetras(char const *mensaje)=0;
+virtual int validarEntero(char  const *mensaje);
+virtual float validarDoubles(char const *mensaje);
+virtual std::string validarLetras(char const *mensaje);
 protected:
 private:
 
 };
+
 
 #endif
