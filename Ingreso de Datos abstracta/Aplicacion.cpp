@@ -15,13 +15,15 @@ int main(int argc, char** argv){
     int valInt=0;
     float valFloat=0;
 
-    ValidarDatos obj1;
+     ValidarDatos obj1;
     std::string dato;
-    valInt = obj1.validarEntero("Ingrese su dato");
+    valInt = obj1.validarEntero("Ingrese su date");
     std::cout<<"\n"<<valInt;
+    std::cout<<"\n";
     valFloat = obj1.validarDoubles("Ingrese su dato");
     std::cout<<"\n"<<valFloat;
-    dato = obj1.validarLetras("Ingrese su texto");
+    std::cout<<"\n";
+    dato = obj1.validarLetras("\n\nIngrese su texto");
     std::cout<<"\n"<<dato;
     return 0;
 }
