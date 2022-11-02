@@ -13,15 +13,19 @@ int ValidarDatos::validarEntero(char const *mensaje){
             if(c == 8){
                 dato.erase(i-1);
                 i--;
-            }
-            std::cout<<c;
+                std::cout<<"\b";
+                std::cout<<" ";
+                std::cout<<"\b";
+            }else{
+                std::cout<<c;
                 dato += c;
                 i++;
+            }
         }
     }
     valor = stoi(dato);
     return valor;
-} 
+}
 
 float ValidarDatos::validarDoubles(char const *mensaje){
     std::string dato;
@@ -37,6 +41,9 @@ float ValidarDatos::validarDoubles(char const *mensaje){
                 }
                 dato.erase(i-1);
                 i--;
+                std::cout<<"\b";
+                std::cout<<" ";
+                std::cout<<"\b";
             }else if(c != '.'){
                 std::cout<<c;
                 dato += c;
@@ -63,12 +70,16 @@ std::string ValidarDatos::validarLetras(char const *mensaje){
     while((c=getch())!=13){
         if((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ' || c == 8){
             if(c == 8){
-                dato.erase(i-2);
+                dato.erase(i-1);
                 i--;
+                std::cout<<"\b";
+                std::cout<<" ";
+                std::cout<<"\b";
+            }else{
+                std::cout<<c;
+                dato += c;
+                i++;
             }
-            std::cout<<c;
-            dato += c;
-            i++;
         }
     }
     return dato;
