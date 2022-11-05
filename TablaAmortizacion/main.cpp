@@ -6,7 +6,7 @@ double calcularTabla(const double saldo,
                      const double pago, 
                      const double interes, 
                      const int    meses, 
-                     const int    cnt     ) {
+                           int    cnt     ) {
 	
     double periodosInteres = saldo * (interes/meses);
     double amortizacion = pago - periodosInteres;
@@ -15,7 +15,7 @@ double calcularTabla(const double saldo,
     std::cout << std::fixed
               << std::setprecision(2)
               << std::setw(5)
-              << cnt 
+              << "19 / " << cnt << " /2021"  
               << std::setw(20)
               << pago 
               << std::setw(18)
@@ -45,7 +45,10 @@ int main () {
     //std::cout << pago;
     
     for(int cnt = 1; saldo > 0; cnt++) {
-        saldo = calcularTabla(saldo, pago, interes , meses, cnt); 
+        saldo = calcularTabla(saldo, pago, interes , meses, cnt);
+		if(cnt == 12){
+			cnt = 0;
+		} 
     }
     
     return 0;
