@@ -1,48 +1,53 @@
 #include <iostream>
 #include <iomanip>
+#include <math.h>
 
-double generarTablaAmortizacion(const double deudaInicial, const double tasaInteres, const int periodosPago, int cnt){
-	const double periodoInteres = (deudaInicial * tasaInteres)/periodosPago;
-	const double amortizacion = deudaInicial/periodosPago;
-	const double pago = periodoInteres + amortizacion;
-	const double deudaFinal = (deudaInicial + periodoInteres) - pago;
+double calcularTabla(const double saldo, 
+                     const double pago, 
+                     const double interes, 
+                     const int    meses, 
+                     const int    cnt     ) {
 	
+    double periodosInteres = saldo * (interes/meses);
+    double amortizacion = pago - periodosInteres;
+    double balance = saldo - amortizacion;
+
     std::cout << std::fixed
               << std::setprecision(2)
               << std::setw(5)
-              << cnt
-              << std::setw(18)
-              << deudaInicial
+              << cnt 
               << std::setw(20)
-              << periodoInteres 
+              << pago 
+              << std::setw(18)
+              << periodosInteres
               << std::setw(20)
               << amortizacion
-              << std::setw(20)
-              << pago
               << std::setw(25)
-              << deudaFinal
+              << balance
               << '\n';
-              
-	return deudaFinal;
+
+    return balance;
 }
 
-int main(){
+int main () {
+
     std::cout << std::setw(5) << "\nMeses#" 
-			  << std::setw(20) << "Deuda Inicial" 
-			  << std::setw(20) << "Intereses" 
+	          << std::setw(18) << "Pago" 
+			  << std::setw(20) << "Interes" 
 			  << std::setw(20) << "Amortizacion" 
-			  << std::setw(18) << "Pagos"
-			  << std::setw(25) << "Deuda Final"
+			  << std::setw(20) << "Saldo"
 			  << '\n';
-    double di = 100;
-    const double ti = .24;
-    const int pd = 12;
 
-
-    for(int cnt = 1; cnt <= pd; cnt++) {
-        di = generarTablaAmortizacion(di, ti, pd, cnt); 
+    double saldo = 3000000;
+    const double interes = 0.015;
+    const int meses = 4;
+    const double pago = saldo*((interes/meses)/(1-(pow((1+(interes/meses)),-meses))));
+    //std::cout << pago;
+    
+    for(int cnt = 1; saldo > 0; cnt++) {
+        saldo = calcularTabla(saldo, pago, interes , meses, cnt); 
     }
     
-	return 0;
+    return 0;
 }
 
