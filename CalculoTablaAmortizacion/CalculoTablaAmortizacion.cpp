@@ -1,3 +1,9 @@
+***********************************************************************
+ * Module:  CalculoTablaAmortizacion.cpp
+ * Author:  Ariel Guevara, David Cantuña
+ * Modified: domingo, 06 de octubre de 2022 
+ * Purpose: Aplicativo que entraga una tabla de amortizacion cuando se ingresa: monto, interes,meses, y fecha en a que se hizo
+ ***********************************************************************/
 /**
  * @file CalculoTablaAmortizacion.cpp
  * @author
