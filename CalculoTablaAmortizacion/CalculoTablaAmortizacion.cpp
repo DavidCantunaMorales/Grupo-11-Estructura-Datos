@@ -1,9 +1,3 @@
-***********************************************************************
- * Module:  CalculoTablaAmortizacion.cpp
- * Author:  Ariel Guevara, David Cantuña
- * Modified: domingo, 06 de octubre de 2022 
- * Purpose: Aplicativo que entraga una tabla de amortizacion cuando se ingresa: monto, interes,meses, y fecha en a que se hizo
- ***********************************************************************/
 /**
  * @file CalculoTablaAmortizacion.cpp
  * @author
@@ -20,34 +14,32 @@
 #include <math.h>
 
 #include "Tabla.h"
+#include "Zeller.h"
 #include "ValidarDatos.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
 
-	double saldo, interes;
-	int meses, d, m, a;
-
 	ValidarDatos obj1;
 	Tabla t1;
 
 
-	saldo = obj1.validarDoubles("Ingrese el monto a pedir: ");
+	t1.setSaldo(obj1.validarDoubles("Ingrese el monto a pedir: "));
 	cout << endl;
-	interes = obj1.validarDoubles("Ingrese el interes del prestamo: ");
+	t1.setInteres(obj1.validarDoubles("Ingrese el interes del prestamo: "));
 	cout << endl;
-	meses = obj1.validarEntero("Ingrese en numero de meses: ");
+	t1.setMeses(obj1.validarEntero("Ingrese en numero de meses: "));
 	cout << endl;
-	d = obj1.validarEntero("Ingrese el dia que se realizo el prestamo: ");
+	t1.setA(obj1.validarEntero("Ingrese el anio que se realizo el prestamo: "));
 	cout << endl;
-	m = obj1.validarEntero("Ingrese el mes que se realizo el prestamo: ");
+	t1.setM(obj1.validarEntero("Ingrese el mes que se realizo el prestamo: "));
 	cout << endl;
-	a = obj1.validarEntero("Ingrese el anio que se realizo el prestamo: ");
+	t1.setD(t1.validarFecha(obj1.validarEntero("Ingrese el dia que se realizo el prestamo: "),t1.getM(),t1.getA()));
 	cout << endl;
-
-
-	const double pago = t1.calcularPago(saldo, interes, meses);
+	
+	
+	t1.setPago(t1.calcularPago(t1.getSaldo(), t1.getInteres(), t1.getMeses()));
 
 	std::cout << std::setw(5) << "\nMeses:"
 		<< std::setw(25) << "Pago:"
@@ -56,7 +48,9 @@ int main(int argc, char** argv) {
 		<< std::setw(25) << "Saldo:"
 		<< '\n';
 
-	t1.tablaAmortizacion(saldo, pago, interes, meses, d, m, a);
+	t1.tablaAmortizacion(t1.getSaldo(), t1.getPago(), t1.getInteres(), 
+						t1.getMeses(), t1.getD(), t1.getM(), t1.getA());
 
 	return 0;
+
 }
