@@ -1,6 +1,6 @@
 /***********************************************************************
  * Module:  Tabla.h
- * Author:  Intel
+ * Author:  Ariel Guevara, David Cantuña
  * Modified: domingo, 6 de noviembre de 2022 0:09:18
  * Purpose: Declaration of the class Tabla
  ***********************************************************************/
@@ -13,11 +13,11 @@
 * @title Clase Tabla Amortizacion
 * @brief Clase para el calculo tabla de amortizacion de prestamos
 * @code
-  int main(){
+int main(){
    const double pago = t1.calcularPago(saldo, interes, meses);
    saldo = t1.calcularTablaAmortizacion(saldo, pago, interes, meses, cnt, d, m, a);
    return 0;
-  }
+}
 * @endconde
 */
 
@@ -109,6 +109,56 @@ public:
 */
    void setA(int newA);
 
+   /**
+ * @brief getter de az
+ * 
+ * @return int 
+ */
+   int getAz();
+/**
+ * @brief setter de az
+ * 
+ * @param a 
+ */
+   void setAz(int a);
+/**
+ * @brief getter de Yz
+ * 
+ * @return int 
+ */
+   int getYz();
+   /**
+     * @brief setter de Yz
+     * 
+     * @param y 
+     */
+   void setYz(int y);
+/**
+ * @brief getter de mz
+ * 
+ * @return int 
+ */
+   int getMz();
+/**
+ * @brief setter de Mz
+ * 
+ * @param m 
+ */
+   void setMz(int m);
+/**
+ * @brief getter de Dz
+ * 
+ * @return int 
+ */
+   int getDz();
+   /**
+     * @brief setter de Dz
+     * 
+     * @param d 
+     */
+   void setDz(int d);
+   double getPago();
+   void setPago(double pago);
 /**
 * @brief Obtiene el valor del pago para la tabla de amortizacion
 * @param saldo
@@ -117,6 +167,22 @@ public:
 * @return Valor calculado
 */
    double calcularPago(double saldo, double interes, int mes);
+
+   int encontrarDia(int anio,int mes, int dia);
+   void verDia(int valor);
+   bool validarAnio(int anio);
+   int validarFecha(int dia,int mes,int anio);
+   int validarDia(int dia,int mes,int anio);
+   int finDeMes(int mes);
+   bool validarFeriado(int dia, int mes);
+
+/**
+ * @brief Obtiene el valor del pago para la tabla de amortizacion
+ * 
+ * @param t 
+ * @return double 
+ */
+   double calcularPago(Tabla t);
 
 /**
 * @brief Actualiza el valor del saldo a pagar y muestra la tabla de amortizacion
@@ -135,12 +201,17 @@ public:
 protected:
 
 private:
+   double pago{};
    double saldo;
    double interes;
    int meses;
    int d;
    int m;
    int a;
+   int az{};
+   int yz{};
+   int mz{};
+   int dz{};
 };
 
 #endif
