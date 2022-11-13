@@ -1,0 +1,28 @@
+﻿  Matriz.cpp
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(45,22): warning C4244: 'argumento': conversión de 'T' a 'size_t'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(44): message : al compilar la función del miembro clase plantilla "void Matriz<float>::segmentar(void)"
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(138): message : Vea la referencia a la creación de una instancia de clase plantilla "Matriz<float>" que se está compilando
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(47,29): warning C4244: 'argumento': conversión de 'T' a 'size_t'; posible pérdida de datos
+          with
+          [
+              T=float
+          ]
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(45,22): warning C4244: 'argumento': conversión de 'T' a 'size_t'; posible pérdida de datos
+          with
+          [
+              T=double
+          ]
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(44): message : al compilar la función del miembro clase plantilla "void Matriz<double>::segmentar(void)"
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(139): message : Vea la referencia a la creación de una instancia de clase plantilla "Matriz<double>" que se está compilando
+G:\Programas\OperacionesMatricesRecursivas\Matriz.cpp(47,29): warning C4244: 'argumento': conversión de 'T' a 'size_t'; posible pérdida de datos
+          with
+          [
+              T=double
+          ]
+  OperacionesMatricesRecursivas.cpp
+  Generando código...
+  OperacionesMatricesRecursivas.vcxproj -> G:\Programas\OperacionesMatricesRecursivas\x64\Debug\OperacionesMatricesRecursivas.exe
