@@ -16,7 +16,7 @@ public:
 	void setMatriz(T** matri);
 	T getDimension();
 	T** getMatriz();
-
+	
 	Matriz<T> multiplicacionMatrices(Matriz<T>);
 	Matriz<T> sumaMatrices(Matriz<T>);
 };
