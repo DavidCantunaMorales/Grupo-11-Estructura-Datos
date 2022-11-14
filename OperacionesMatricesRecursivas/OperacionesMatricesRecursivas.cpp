@@ -3,15 +3,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <locale.h>
 
 #include "Matriz.h"
 
 using namespace std;
 
 int main(int argc, char** argv) {
+	setlocale(LC_CTYPE, "Spanish");//para tener la consola en español
 
 	int d;
-	cout << "Ingrese el tamanio de las matrices: ";
+	cout << "Ingrese el tamaño de las matrices: ";
 	cin >> d;
 
 	Matriz<int> m1(d);
