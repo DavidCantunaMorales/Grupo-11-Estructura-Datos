@@ -29,4 +29,8 @@ public:
     void eliminarNodoDoble(NodoDoble **nodoDoble, int posicion, int &contarDatos);
     void mostrarListaDoble(NodoDoble *nodoDoble, int contarDatos);
     void mostrarListaDoblePorLaCola(NodoDoble *nodoDoble, int contarDatos);
+    int encontrarMayor(NodoDoble *nodoDoble);
+    int encontrarMenor(NodoDoble *nodoDoble);
+    int minimoComunMultiplo(NodoDoble *nodoDoble);
+    int maximoComunDivisor(NodoDoble *nodoDoble);
 }; // Fin clase NodoDoble

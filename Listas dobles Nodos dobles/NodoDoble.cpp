@@ -108,7 +108,81 @@ void NodoDoble::mostrarListaDoble(NodoDoble *nodoDoble, int contarDatos) // Mét
 		cout << "\nNumero de nodos en la lista doble: " << contarDatos << endl;
 	}
 }
-
+int NodoDoble::encontrarMayor(NodoDoble *nodoDoble){
+		NodoDoble *tmp=nodoDoble;
+		NodoDoble *aux = tmp->getSiguiente();
+		int mayor{};
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(aux == nullptr){//if asigna a aux el valor de tmp cuando aux == nullptr
+				aux = tmp;
+			}
+			if(aux->getDato() >= tmp->getDato()){
+				mayor = aux->getDato();
+			}
+			tmp=tmp->getSiguiente();
+			aux = aux->getSiguiente();	
+		}
+		}
+		return mayor;
+	}
+int NodoDoble::encontrarMenor(NodoDoble *nodoDoble){
+		NodoDoble *tmp=nodoDoble;
+		//Nodo *aux = this->primero->siguiente;
+		int menor = tmp->getDato();
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(tmp->getDato() <= menor){
+				menor = tmp->getDato();
+			}
+			tmp=tmp->getSiguiente();
+		}
+		}
+		return menor;
+	}
+int NodoDoble::minimoComunMultiplo(NodoDoble *nodoDoble){
+		NodoDoble *tmp=nodoDoble;
+		int mayor = tmp->encontrarMayor(nodoDoble);//asignamos el valor mayor de la lista]
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(mayor%tmp->getDato() == 0){
+				tmp=tmp->getSiguiente();
+			}else{
+				mayor++;
+				tmp = nodoDoble;//regesamos a la cabeza de la lista
+			}
+		}
+		}
+		return mayor;
+	}
+int NodoDoble::maximoComunDivisor(NodoDoble *nodoDoble){
+		NodoDoble *tmp=nodoDoble;
+		int maximo{};
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			for(int i{1};i <= tmp->encontrarMenor(nodoDoble);i++){
+			tmp = nodoDoble;
+			while(tmp){
+			if(tmp->getDato()%i == 0){
+				maximo = i;
+			}
+			tmp=tmp->getSiguiente();
+			}
+		}
+		}
+		return maximo;
+	}
 void NodoDoble::mostrarListaDoblePorLaCola(NodoDoble *nodoDoble, int contarDatos) // Método en el cual se muestra la lista doble
 {
 	NodoDoble *aux,*aux2;	 // Declaro una variable puntero *aux de tipo NodoDoble que me va a servir para utilizarla como auxiiar que apunte a la lista doble para no trabajar directamente con la lista doble.
