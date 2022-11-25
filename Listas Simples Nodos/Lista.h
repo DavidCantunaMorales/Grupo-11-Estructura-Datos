@@ -1,7 +1,11 @@
 #pragma once
-#include "Nodo.h"
 #include <iostream>
+#include "Nodo.h"
+#include "ValidarDatos.h"
+
 using namespace std;
+
+ValidarDatos obj;
 class Lista{
 	private:
 		Nodo *primero; //cabeza 
@@ -15,11 +19,12 @@ class Lista{
 			this->actual=NULL;
 		}
 
-	void insertar(int val){
+	void insertar(){
+		int val = obj.validarEntero("\nIngrese un valor para la lista: ");
 		Nodo *nuevo = new Nodo(val);
 		if (listaVacia()){
 			this->primero=nuevo;
-			cout<<"Primero: "<<primero->valor<<endl;
+			//cout<<"Primero: "<<primero->valor<<endl;
 		}
 		else{
 			//se asigna la direccion de memoria del nuevo nodo creado al actual
@@ -35,12 +40,93 @@ class Lista{
 	}
 	void mostrarLista(){
 		Nodo *tmp=this->primero;
-		while(tmp){
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
 			cout<<tmp->valor<<"-->";
 			tmp=tmp->siguiente;
 		}
 		cout<<"NULL";
+		}
 	}
+	int encontrarMayor(){
+		Nodo *tmp=this->primero;
+		Nodo *aux = this->primero->siguiente;
+		int mayor{};
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(aux == nullptr){//if asigna a aux el valor de tmp cuando aux == nullptr
+				aux = tmp;
+			}
+			if(aux->valor >= tmp->valor){
+				mayor = aux->valor;
+			}
+			tmp=tmp->siguiente;
+			aux = aux->siguiente;	
+		}
+		}
+		return mayor;
+	}
+	int encontrarMenor(){
+		Nodo *tmp=this->primero;
+		//Nodo *aux = this->primero->siguiente;
+		int menor = this->primero->valor;
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(tmp->valor <= menor){
+				menor = tmp->valor;
+			}
+			tmp=tmp->siguiente;
+		}
+		}
+		return menor;
+	}
+	int minimoComunMultiplo(){
+		Nodo *tmp=this->primero;
+		int mayor = this->encontrarMayor();//asignamos el valor mayor de la lista]
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			while(tmp){
+			if(mayor%tmp->valor == 0){
+				tmp=tmp->siguiente;
+			}else{
+				mayor++;
+				tmp = this->primero;//regesamos a la cabeza de la lista
+			}
+		}
+		}
+		return mayor;
+	}
+	int maximoComunDivisor(){
+		Nodo *tmp=this->primero;
+		int maximo{};
+		if (tmp == NULL) // Si la lista doble esta vacia, si tmp apunta a NULL.
+		{
+		cout << "\nLista Doblemente Enlazada vacia." << endl;
+		}else{
+			for(int i{1};i <= this->encontrarMenor();i++){
+			tmp = this->primero;
+			while(tmp){
+			if(tmp->valor%i == 0){
+				maximo = i;
+			}
+			tmp=tmp->siguiente;
+			}
+		}
+		}
+		return maximo;
+	}
+
 	int encontrarCola(){
 		Nodo *tmp = this->primero;
 		int datos = 0;
