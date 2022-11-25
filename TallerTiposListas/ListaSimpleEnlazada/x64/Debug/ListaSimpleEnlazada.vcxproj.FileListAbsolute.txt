@@ -1,2 +1,0 @@
-G:\Programas\ListaSimpleEnlazada\x64\Debug\ListaSimpleEnlazada.exe
-G:\Programas\TallerTiposListas\ListaSimpleEnlazada\x64\Debug\ListaSimpleEnlazada.exe
