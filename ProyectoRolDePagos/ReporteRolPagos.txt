@@ -1,0 +1,34 @@
+NOMBRE:   EDWIN DAVID
+APELLIDO: CANTUNIA MORALES
+CEDULA:   1753020393
+CARGO:    OFICINISTA
+INFORMACION ROL DE PAGO: 
+  SUELDO:          430
+  HORAS EXTAS:     408.5
+  FERIADOS:        86
+  SUB TOTAL:       924.5
+  FONDOS RESERVA:  77.0417
+  TOTAL INGRESOS:  1001.54
+  RETENCION IESS:  87.3652
+  PRESTAMO IESS:   86.86
+  RETENCION TOTAL: 174.225
+  SUELDO NETO:     827.316
+---------------------------------------------------------------------------------------------
+
+NOMBRE:   GENESIS ISABEL
+APELLIDO: CALAPAQUI PORTILLA
+CEDULA:   456
+CARGO:    CULEO
+INFORMACION ROL DE PAGO: 
+  SUELDO:          430
+  HORAS EXTAS:     408.5
+  FERIADOS:        86
+  SUB TOTAL:       924.5
+  FONDOS RESERVA:  77.0417
+  TOTAL INGRESOS:  1001.54
+  RETENCION IESS:  87.3652
+  PRESTAMO IESS:   86.86
+  RETENCION TOTAL: 174.225
+  SUELDO NETO:     827.316
+---------------------------------------------------------------------------------------------
+
