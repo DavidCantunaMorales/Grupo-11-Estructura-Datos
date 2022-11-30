@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ControladorRegistro">
+    <Position X="14.75" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ASAAAAAAQAAAgAEAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ControladorRegistro.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControladorReportes">
+    <Position X="9.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAAQBAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ControladorReportes.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="controladorRegistro" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Empleado">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAgQAARCAAAAAxAAIAAAAAACBAAAIAQAEAAA=</HashCode>
+      <FileName>Empleado.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ListaCircularDoble&lt;T&gt;">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAARAAAAAGAIAAAQAAgCIAAAKACEAAAAAAAAA=</HashCode>
+      <FileName>ListaCircularDoble.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="cabeza" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Utileria">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQACAAAAAIgAAAAAIAAAAQAAAhEAAAgAAAEAAAAAQ=</HashCode>
+      <FileName>Utileria.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Login">
+    <Position X="16.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Login.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Menu">
+    <Position X="9.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAEAAABAAAAAgAAAA=</HashCode>
+      <FileName>Menu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NodoCircular&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIAAAAAAAgAAAAAAAAAEACAAACBABAQAAAAAQAAAAAA=</HashCode>
+      <FileName>NodoCircular.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RolDePago">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgARAgAAEyIBAJAgkhoACCABkQgABAAikAAAIIEA=</HashCode>
+      <FileName>RolDePago.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="empleado" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ValidarDatos">
+    <Position X="14.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgCAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ValidarDatos.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
