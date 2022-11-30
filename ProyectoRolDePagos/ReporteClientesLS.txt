@@ -1,5 +1,0 @@
-NOMBRE: asd
-APELLIDO: asd
-CEDULA: asd
-CARGO: ad
-
