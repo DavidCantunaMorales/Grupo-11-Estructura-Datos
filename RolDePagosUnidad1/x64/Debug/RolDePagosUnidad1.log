@@ -1,6 +1,0 @@
-﻿  ControladorRegistro.cpp
-G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\ControladorRegistro.cpp(80,17): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\ControladorRegistro.cpp(81,15): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\ControladorRegistro.cpp(82,17): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\ControladorRegistro.cpp(83,18): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  RolDePagosUnidad1.vcxproj -> G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe
