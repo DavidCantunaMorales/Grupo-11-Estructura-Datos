@@ -1,3 +1,2 @@
-1710091099,martha cecilia,morales sighca,secretaria
-1803005071,juan,perez,docente
-1753020393,perez,juan,docente
+1753020393,edwin david,cantunia morales,jefe en cargo
+1710091099,martha cecilia,morales sigcha,secretaria

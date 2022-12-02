@@ -142,10 +142,13 @@
     <ClInclude Include="Empleado.h" />
     <ClInclude Include="Fecha.h" />
     <ClInclude Include="ListaCircularDoble.h" />
+    <ClInclude Include="ListaDoble.h" />
+    <ClInclude Include="ListaSimple.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NodoCircular.h" />
-    <ClInclude Include="rang.hpp" />
+    <ClInclude Include="NodoDoble.h" />
+    <ClInclude Include="NodoSimple.h" />
     <ClInclude Include="RolDePago.h" />
     <ClInclude Include="Utileria.h" />
     <ClInclude Include="ValidarDatos.h" />

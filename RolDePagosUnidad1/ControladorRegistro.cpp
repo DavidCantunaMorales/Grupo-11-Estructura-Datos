@@ -9,8 +9,9 @@ using namespace std;
 
 // INGRESO GENERAL
 void ControladorRegistro::registrarEmpleado() {
+	
 	ValidarDatos val;
-	// Declarar variables para el constructor Empleado
+
 	std::string cedula;
 	std::string nombres;
 	std::string apellidos;
@@ -19,38 +20,27 @@ void ControladorRegistro::registrarEmpleado() {
 	std::cout << "Registrar cliente:" << std::endl << std::endl;
 
 	rewind(stdin);
-	apellidos = val.validarLetras("Ingrese los apellidos: "); // validaciones
+	apellidos = val.validarLetras("Ingrese los apellidos: ");
 	rewind(stdin);
-	nombres = val.validarLetras("Ingrese los nombres: "); // validaciones
+	nombres = val.validarLetras("Ingrese los nombres: ");
 	rewind(stdin);
-	cargo = val.validarLetras("Ingrese el cargo: "); // validaciones
+	cargo = val.validarLetras("Ingrese el cargo: ");
 	rewind(stdin);
-	// variable auto identifica el tipo de variable automaticamente
-	// leerEmpleadosLC: lee el txt los datos guardados y los almacena en una lista que se asigna a clientes 
-	auto empleados = leerEmpleadosLC(); // listaCircularDoble<Empleado> empleados = leerEmpleadosLC();
+
+	auto empleados = leerEmpleadoLC(); // listaCircular<T>* lc = new listaCircular();
 
 	do {
-		// leer_cadena_regex en Utileria.h hace un cliclo que se rompe hasta que se ingrese un formato de cedula correcto 10 digitos
-		cedula = Utileria::leerCadena1("Ingrese la cedula: ", "^[0-9]{10}$");
+		cedula = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
 
-		// validaciones 
 		if (!Utileria::cedula_valida(cedula)) {
 			Utileria::mostrar_mensaje("Cedula invalida", TipoMensaje::Error);
 			continue;
 		}
 
-		// usamos la variable auto que se le va a asignar un puntero NodoCircular<T>*	
-		// empleados.buscar() es una funcion que retorna NodoCircular<T>*
-		// Usa una funcion lamda en los [] van las variables de entorno que declaramos y queremos usar en el lamda en este caso estamos mandando la [cedula]
-		// En () se mandan los parametros como cualquier funcion normal en este caso estamos mandando la variable T de tipo Empleado ya que es una plantilla                
-
-		// A la funcion buscar estamos mandando como Empleado c y comparamos con la cedula ingresada en los [cedula]
 		auto encontrado = empleados.buscar([cedula](Empleado c) {
 			return c.getCedula() == cedula;
-			// Comprarmos si las cedulas son iguales
-		});
+			});
 
-		// Si las cedulas son iguales no nos permite ingresar ya que ya existe ese empleado
 		if (encontrado) {
 			Utileria::mostrar_mensaje("Cedula ya registrada", TipoMensaje::Error);
 			continue;
@@ -60,30 +50,32 @@ void ControladorRegistro::registrarEmpleado() {
 	} while (true);
 
 	Empleado empleado(nombres, apellidos, cedula, cargo);
-	guardarEmpleado(empleado);
+	guardarEmpleadoLC(empleado);
+	guardarEmpleadoLD(empleado);
+	guardarEmpleadoLS(empleado);
 	Utileria::mostrar_mensaje("Datos guardados", TipoMensaje::Correcto);
 }
-
 void ControladorRegistro::registrarRolPago() {
+
 	ValidarDatos val;
+
 	std::string cedula;
-	auto empleados = leerEmpleadosLC(); // listaCircularDoble<Empleado> empleados = leerEmpleadosLC();
-	auto rolPagosE = leerRolDePagoLC(); // listaCircularDoble<RolDePago> rolPagosE = leerRolDePagoLC();
+	auto empleados = leerEmpleadoLC(); // Lista tipo Empleado
+	auto rolPagosE = leerRolDePagoLC();
 	NodoCircular<Empleado>* encontrado;
 
-	if (empleados.estaVacio()) {
-		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Informativo);
+	if (empleados.listaVacia()) {
+		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Error);
 		return;
 	}
 
-
 	do {
-		cedula = Utileria::leerCadena1("Ingrese la cedula: ", "^[0-9]{10}$");
+		cedula = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
 
 		auto encontrado1 = rolPagosE.buscar([cedula](RolDePago c) {
 			return c.getEmpleado().getCedula() == cedula;
 			// Comprarmos si las cedulas son iguales
-		});
+			});
 
 		if (encontrado1) {
 			Utileria::mostrar_mensaje("Ya existe un rol de pago con esta cedula", TipoMensaje::Error);
@@ -101,26 +93,28 @@ void ControladorRegistro::registrarRolPago() {
 
 		if (!encontrado) {
 			Utileria::mostrar_mensaje("Cedula no registrada", TipoMensaje::Error);
-			return;
+			continue;
 		}
 
 		break;
 	} while (true);
 
-
-	float salarioR = val.validarDoubles("Ingrese el monto del salario: ");
+	float salarioR = val.validarDoubles("Ingrese el salario unificado: ");
 	float horasR = val.validarDoubles("Ingrese el salario horas extras: ");
+	float feriadoR = val.validarDoubles("Ingrese el salario por feriados: ");
 	float prestamoR = val.validarDoubles("Ingrese el prestamo realizado al IESS: ");
 
 	Empleado empleado = encontrado->getValor();
-	RolDePago rolPagoE(empleado, salarioR, horasR, prestamoR);
-	guardarRolDePago(rolPagoE);
+	RolDePago rolPagoE(empleado, salarioR, horasR, feriadoR, prestamoR);
+	guardarRolDePagoLC(rolPagoE);
+	guardarRolDePagoLD(rolPagoE);
+	guardarRolDePagoLS(rolPagoE);
 	Utileria::mostrar_mensaje("Datos guardados", TipoMensaje::Correcto);
 }
 
 // LISTA CIRCULARES
-ListaCircularDoble<Empleado> ControladorRegistro::leerEmpleadosLC() {
-	ListaCircularDoble<Empleado> clientes;
+ListaCircularDoble<Empleado> ControladorRegistro::leerEmpleadoLC() {
+	ListaCircularDoble<Empleado> empleados;
 
 	Utileria::leer_lineas("EmpleadosLC.txt", [&](std::string linea, ListaCircularDoble<std::string> columnas) {
 		std::string cedula = columnas.obtenerNodo(0)->getValor();
@@ -129,39 +123,32 @@ ListaCircularDoble<Empleado> ControladorRegistro::leerEmpleadosLC() {
 		std::string cargo = columnas.obtenerNodo(3)->getValor();
 
 		Empleado empleado(nombres, apellidos, cedula, cargo);
-		clientes.insertarFinal(empleado);
-
+		empleados.insertarFinal(empleado);
 	});
 
-	return clientes;
+	return empleados;
 }
-
-void ControladorRegistro::guardarEmpleado(Empleado cliente) {
-	auto clientes = leerEmpleadosLC();
+void ControladorRegistro::guardarEmpleadoLC(Empleado emp) {
+	auto empleados = leerEmpleadoLC();
 	std::ofstream archivo("EmpleadosLC.txt", std::ios::trunc);
 
-	// El & nos permite usar todas las variables locales declaradas en la funcion en donde se encuentre el lamda en este caso
-	// en guardarEmpleado & nos da acceso al std::ofstream archivo 
-
-	clientes.recorrer([&](Empleado c) {
+	empleados.recorrer([&](Empleado c) {
 		archivo << c.toString() << std::endl;
 	});
 
-	archivo << cliente.toString() << std::endl;
+	archivo << emp.toString() << std::endl;
 	archivo.close();
 }
-
-void ControladorRegistro::eliminarEmpleado() {
-
-	auto empleados = leerEmpleadosLC();
+void ControladorRegistro::eliminarEmpleadoLC(){
+	auto empleados = leerEmpleadoLC();
 	NodoCircular<Empleado>* encontrado;
 
-	if (empleados.estaVacio()) {
-		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Informativo);
+	if (empleados.listaVacia()) {
+		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Error);
 		return;
 	}
 
-	std::string aux = Utileria::leerCadena1("Ingrese la cedula: ", "^[0-9]{10}$");
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
 
 	ofstream entrada;
 	entrada.open("Temp.txt", std::ios::trunc);
@@ -170,8 +157,7 @@ void ControladorRegistro::eliminarEmpleado() {
 		encontrado = empleados.obtenerNodo(i);
 		Empleado emp = encontrado->getValor();
 		if (aux == emp.getCedula()) {
-			Utileria::mostrar_mensaje("Se ha eliminado el empleado", TipoMensaje::Informativo);
-			//std::cout << "Se ha eliminado el empleado" << std::endl;
+			std::cout << "Se ha eliminado el registro" << std::endl;
 		}
 		else {
 			entrada << emp.toString() << std::endl;
@@ -179,71 +165,64 @@ void ControladorRegistro::eliminarEmpleado() {
 	}
 
 	entrada.close();
-	
-	eliminarRolDePagoCompleto(aux);
+
+	eliminarRolDePagoCompletoLC(aux);
 
 	remove("EmpleadosLC.txt");
 	rename("Temp.txt", "EmpleadosLC.txt");
 }
 
 ListaCircularDoble<RolDePago> ControladorRegistro::leerRolDePagoLC() {
-	ListaCircularDoble<RolDePago> rolPagos;
-	auto empleados = leerEmpleadosLC();
+	ListaCircularDoble<RolDePago> rolPagosE;
+	auto empleados = leerEmpleadoLC();
 
 	Utileria::leer_lineas("RoldePagoLC.txt", [&](std::string linea, ListaCircularDoble<std::string> columnas) {
 		std::string cedula = columnas.obtenerNodo(0)->getValor();
 		std::string salarioU = columnas.obtenerNodo(1)->getValor();
 		std::string salarioH = columnas.obtenerNodo(2)->getValor();
-		//std::string feriadosU = columnas.obtenerNodo(3)->getValor();
+		std::string feriadosU = columnas.obtenerNodo(3)->getValor();
 		std::string prestamoI = columnas.obtenerNodo(8)->getValor();
-
-		// transformamos los valores obtenidos de string a float y los alamacenamos en el constructor RolDePago
 		float salarioU1 = std::stof(salarioU);
 		float salarioH1 = std::stof(salarioH);
-		//float feriadosU1 = std::stof(feriadosU);
+		float feriadosU1 = std::stof(feriadosU);
 		float prestamoI1 = std::stof(prestamoI);
 
-		// buscar la cedula ya registrada
-		auto encontrado = empleados.buscar([&](Empleado cliente) {
-			return cliente.getCedula() == cedula;
-		});
+		auto encontrado = empleados.buscar([&](Empleado emp) {
+			return emp.getCedula() == cedula;
+			});
 
-		// por si no se encuentra la cedula
 		if (!encontrado) {
 			return;
 		}
 
-		Empleado empleado = encontrado->getValor();  // obtenemos los valores del Empleado
-		RolDePago rolPago(empleado, salarioU1, salarioH1, prestamoI1);
-		rolPagos.insertarFinal(rolPago);
-
+		Empleado empleado = encontrado->getValor();
+		RolDePago rolPagoE(empleado, salarioU1, salarioH1, feriadosU1, prestamoI1);
+		rolPagosE.insertarFinal(rolPagoE);
 	});
 
-	return rolPagos;
+	return rolPagosE;
 }
-
-void ControladorRegistro::guardarRolDePago(RolDePago rolPago) {
-	auto rolPagos = leerRolDePagoLC();
+void ControladorRegistro::guardarRolDePagoLC(RolDePago rolP) {
+	auto rolPagosE = leerRolDePagoLC();
 	std::ofstream archivo("RoldePagoLC.txt", std::ios::trunc);
 
-	rolPagos.recorrer([&](RolDePago r) {
-		archivo << r.toString() << std::endl;
-	});
+	rolPagosE.recorrer([&](RolDePago a) {
+		archivo << a.toString() << std::endl;
+		});
 
-	archivo << rolPago.toString() << std::endl;
+	archivo << rolP.toString() << std::endl;
 	archivo.close();
 }
-
-void ControladorRegistro::eliminarRolDePago(){
+void ControladorRegistro::eliminarRolDePagoLC(){
 	auto rolPagos = leerRolDePagoLC();
 	NodoCircular<RolDePago>* encontrado;
-	
-	if (rolPagos.estaVacio()) {
-		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Informativo);
+
+	if (rolPagos.listaVacia()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
 		return;
 	}
-	
-	std::string aux = Utileria::leerCadena1("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
 
 	ofstream entrada;
 	entrada.open("Temp1.txt", std::ios::trunc);
@@ -252,8 +231,37 @@ void ControladorRegistro::eliminarRolDePago(){
 		encontrado = rolPagos.obtenerNodo(i);
 		RolDePago rol = encontrado->getValor();
 		if (aux == rol.getEmpleado().getCedula()) {
-			Utileria::mostrar_mensaje("Se ha eliminado el rol de pago", TipoMensaje::Informativo);
-			//std::cout << "Se ha eliminado el rol de pago" << std::endl;
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << rol.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	remove("RoldePagoLC.txt");
+	rename("Temp1.txt", "RoldePagoLC.txt");
+}
+void ControladorRegistro::eliminarRolDePagoCompletoLC(string aux) {
+	auto rolPagos = leerRolDePagoLC();
+	NodoCircular<RolDePago>* encontrado;
+
+	if (rolPagos.listaVacia()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
+		return;
+	}
+
+	//std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp1.txt", std::ios::trunc);
+
+	for (int i = 0; i < rolPagos.total(); i++) {
+		encontrado = rolPagos.obtenerNodo(i);
+		RolDePago rol = encontrado->getValor();
+		if (aux == rol.getEmpleado().getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
 		}
 		else {
 			entrada << rol.toString() << std::endl;
@@ -266,19 +274,127 @@ void ControladorRegistro::eliminarRolDePago(){
 	rename("Temp1.txt", "RoldePagoLC.txt");
 }
 
-void ControladorRegistro::eliminarRolDePagoCompleto(std::string aux){
-	auto rolPagos = leerRolDePagoLC();
-	NodoCircular<RolDePago>* encontrado;
+// LISTAS DOBLES
+ListaDoble<Empleado> ControladorRegistro::leerEmpleadoLD() {
+	ListaDoble<Empleado> empleados;
+
+	Utileria::leer_lineasLD("EmpleadosLD.txt", [&](std::string linea, ListaDoble<std::string> columnas) {
+		std::string cedula = columnas.obtenerNodoLD(0)->getValor();
+		std::string nombres = columnas.obtenerNodoLD(1)->getValor();
+		std::string apellidos = columnas.obtenerNodoLD(2)->getValor();
+		std::string cargo = columnas.obtenerNodoLD(3)->getValor();
+
+		Empleado empleado(nombres, apellidos, cedula, cargo);
+		empleados.insertarFinalLD(empleado);
+	});
+
+	return empleados;
+}
+void ControladorRegistro::guardarEmpleadoLD(Empleado emp) {
+	auto empleados = leerEmpleadoLD();
+	std::ofstream archivo("EmpleadosLD.txt", std::ios::trunc);
+
+	empleados.recorrerLD([&](Empleado c) {
+		archivo << c.toString() << std::endl;
+	});
+
+	archivo << emp.toString() << std::endl;
+	archivo.close();
+}
+void ControladorRegistro::eliminarEmpleadoLD(){
+	auto empleados = leerEmpleadoLD();
+	NodoDoble<Empleado>* encontrado;
+
+	if (empleados.estaVacioLD()) {
+		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Error);
+		return;
+	}
+
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp.txt", std::ios::trunc);
+
+	for (int i = 0; i < empleados.totalLD(); i++) {
+		encontrado = empleados.obtenerNodoLD(i);
+		Empleado emp = encontrado->getValor();
+		if (aux == emp.getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << emp.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	eliminarRolDePagoCompletoLD(aux);
+
+	remove("EmpleadosLD.txt");
+	rename("Temp.txt", "EmpleadosLD.txt");
+}
+
+
+ListaDoble<RolDePago> ControladorRegistro::leerRolDePagoLD() {
+	ListaDoble<RolDePago> rolP;
+	auto empleados = leerEmpleadoLD();
+
+	Utileria::leer_lineasLD("RoldePagoLD.txt", [&](std::string linea, ListaDoble<std::string> columnas) {
+		std::string cedula = columnas.obtenerNodoLD(0)->getValor();
+		std::string salarioU = columnas.obtenerNodoLD(1)->getValor();
+		std::string salarioH = columnas.obtenerNodoLD(2)->getValor();
+		std::string feriadosU = columnas.obtenerNodoLD(3)->getValor();
+		std::string prestamoI = columnas.obtenerNodoLD(8)->getValor();
+		float salarioU1 = std::stof(salarioU);
+		float salarioH1 = std::stof(salarioH);
+		float feriadosU1 = std::stof(feriadosU);
+		float prestamoI1 = std::stof(prestamoI);
+
+		auto encontrado = empleados.buscarLD([&](Empleado emp) {
+			return emp.getCedula() == cedula;
+			});
+
+		if (!encontrado) {
+			return;
+		}
+
+		Empleado empleado = encontrado->getValor();
+		RolDePago rolPago(empleado, salarioU1, salarioH1, feriadosU1, prestamoI1);
+		rolP.insertarFinalLD(rolPago);
+	});
+
+	return rolP;
+}
+void ControladorRegistro::guardarRolDePagoLD(RolDePago rolpagos) {
+	auto rolPagosE = leerRolDePagoLD();
+	std::ofstream archivo("RoldePagoLD.txt", std::ios::trunc);
+
+	rolPagosE.recorrerLD([&](RolDePago a) {
+		archivo << a.toString() << std::endl;
+		});
+
+	archivo << rolpagos.toString() << std::endl;
+	archivo.close();
+}
+void ControladorRegistro::eliminarRolDePagoLD() {
+	auto rolPagos = leerRolDePagoLD();
+	NodoDoble<RolDePago>* encontrado;
+
+	if (rolPagos.estaVacioLD()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
+		return;
+	}
+
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
 
 	ofstream entrada;
 	entrada.open("Temp1.txt", std::ios::trunc);
 
-	for (int i = 0; i < rolPagos.total(); i++) {
-		encontrado = rolPagos.obtenerNodo(i);
+	for (int i = 0; i < rolPagos.totalLD(); i++) {
+		encontrado = rolPagos.obtenerNodoLD(i);
 		RolDePago rol = encontrado->getValor();
 		if (aux == rol.getEmpleado().getCedula()) {
-			Utileria::mostrar_mensaje("Se ha eliminado el rol de pago", TipoMensaje::Informativo);
-			//std::cout << "Se ha eliminado el rol de pago" << std::endl;
+			std::cout << "Se ha eliminado el registro" << std::endl;
 		}
 		else {
 			entrada << rol.toString() << std::endl;
@@ -287,6 +403,198 @@ void ControladorRegistro::eliminarRolDePagoCompleto(std::string aux){
 
 	entrada.close();
 
-	remove("RoldePagoLC.txt");
-	rename("Temp1.txt", "RoldePagoLC.txt");
+	remove("RoldePagoLD.txt");
+	rename("Temp1.txt", "RoldePagoLD.txt");
+}
+void ControladorRegistro::eliminarRolDePagoCompletoLD(string aux) {
+	auto rolPagos = leerRolDePagoLD();
+	NodoDoble<RolDePago>* encontrado;
+
+	if (rolPagos.estaVacioLD()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
+		return;
+	}
+
+	//std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp1.txt", std::ios::trunc);
+
+	for (int i = 0; i < rolPagos.totalLD(); i++) {
+		encontrado = rolPagos.obtenerNodoLD(i);
+		RolDePago rol = encontrado->getValor();
+		if (aux == rol.getEmpleado().getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << rol.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	remove("RoldePagoLD.txt");
+	rename("Temp1.txt", "RoldePagoLD.txt");
+}
+
+// LISTAS SIMPLES
+ListaSimple<Empleado> ControladorRegistro::leerEmpleadoLS() {
+	ListaSimple<Empleado> empleados;
+
+	Utileria::leer_lineasLS("EmpleadosLS.txt", [&](std::string linea, ListaSimple<std::string> columnas) {
+		std::string cedula = columnas.obtenerNodoLS(0)->getValor();
+		std::string nombres = columnas.obtenerNodoLS(1)->getValor();
+		std::string apellidos = columnas.obtenerNodoLS(2)->getValor();
+		std::string cargo = columnas.obtenerNodoLS(3)->getValor();
+
+		Empleado empleado(nombres, apellidos, cedula, cargo);
+		empleados.insertarFinalLS(empleado);
+	});
+
+	return empleados;
+}
+void ControladorRegistro::guardarEmpleadoLS(Empleado emp) {
+	auto empleados = leerEmpleadoLS();
+	std::ofstream archivo("EmpleadosLS.txt", std::ios::trunc);
+
+	empleados.recorrerLS([&](Empleado c) {
+		archivo << c.toString() << std::endl;
+	});
+
+	archivo << emp.toString() << std::endl;
+	archivo.close();
+}
+void ControladorRegistro::eliminarEmpleadoLS() {
+	auto empleados = leerEmpleadoLS();
+	NodoSimple<Empleado>* encontrado;
+
+	if (empleados.estaVacioLS()) {
+		Utileria::mostrar_mensaje("No existen empleados registrados", TipoMensaje::Error);
+		return;
+	}
+
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp.txt", std::ios::trunc);
+
+	for (int i = 0; i < empleados.totalLS(); i++) {
+		encontrado = empleados.obtenerNodoLS(i);
+		Empleado emp = encontrado->getValor();
+		if (aux == emp.getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << emp.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	eliminarRolDePagoCompletoLS(aux);
+
+	remove("EmpleadosLS.txt");
+	rename("Temp.txt", "EmpleadosLS.txt");
+}
+
+ListaSimple<RolDePago> ControladorRegistro::leerRolDePagoLS() {
+	ListaSimple<RolDePago> rolP;
+	auto empleados = leerEmpleadoLS();
+
+	Utileria::leer_lineasLS("RoldePagoLS.txt", [&](std::string linea, ListaSimple<std::string> columnas) {
+		std::string cedula = columnas.obtenerNodoLS(0)->getValor();
+		std::string salarioU = columnas.obtenerNodoLS(1)->getValor();
+		std::string salarioH = columnas.obtenerNodoLS(2)->getValor();
+		std::string feriadosU = columnas.obtenerNodoLS(3)->getValor();
+		std::string prestamoI = columnas.obtenerNodoLS(8)->getValor();
+		float salarioU1 = std::stof(salarioU);
+		float salarioH1 = std::stof(salarioH);
+		float feriadosU1 = std::stof(feriadosU);
+		float prestamoI1 = std::stof(prestamoI);
+
+		auto encontrado = empleados.buscarLS([&](Empleado cliente) {
+			return cliente.getCedula() == cedula;
+			});
+
+		if (!encontrado) {
+			return;
+		}
+
+		Empleado empleado = encontrado->getValor();
+		RolDePago rolPago(empleado, salarioU1, salarioH1, feriadosU1, prestamoI1);
+		rolP.insertarFinalLS(rolPago);
+	});
+
+	return rolP;
+}
+void ControladorRegistro::guardarRolDePagoLS(RolDePago rolpagos) {
+	auto empleados = leerRolDePagoLS();
+	std::ofstream archivo("RoldePagoLS.txt", std::ios::trunc);
+
+	empleados.recorrerLS([&](RolDePago a) {
+		archivo << a.toString() << std::endl;
+	});
+
+	archivo << rolpagos.toString() << std::endl;
+	archivo.close();
+}
+void ControladorRegistro::eliminarRolDePagoLS() {
+	auto rolPagos = leerRolDePagoLS();
+	NodoSimple<RolDePago>* encontrado;
+
+	if (rolPagos.estaVacioLS()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
+		return;
+	}
+
+	std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp1.txt", std::ios::trunc);
+
+	for (int i = 0; i < rolPagos.totalLS(); i++) {
+		encontrado = rolPagos.obtenerNodoLS(i);
+		RolDePago rol = encontrado->getValor();
+		if (aux == rol.getEmpleado().getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << rol.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	remove("RoldePagoLS.txt");
+	rename("Temp1.txt", "RoldePagoLS.txt");
+}
+void ControladorRegistro::eliminarRolDePagoCompletoLS(string aux) {
+	auto rolPagos = leerRolDePagoLS();
+	NodoSimple<RolDePago>* encontrado;
+
+	if (rolPagos.estaVacioLS()) {
+		Utileria::mostrar_mensaje("No existen rol de pagos registrados", TipoMensaje::Error);
+		return;
+	}
+
+	//std::string aux = Utileria::leer_cadena_regex("Ingrese la cedula: ", "^[0-9]{10}$");
+
+	ofstream entrada;
+	entrada.open("Temp1.txt", std::ios::trunc);
+
+	for (int i = 0; i < rolPagos.totalLS(); i++) {
+		encontrado = rolPagos.obtenerNodoLS(i);
+		RolDePago rol = encontrado->getValor();
+		if (aux == rol.getEmpleado().getCedula()) {
+			std::cout << "Se ha eliminado el registro" << std::endl;
+		}
+		else {
+			entrada << rol.toString() << std::endl;
+		}
+	}
+
+	entrada.close();
+
+	remove("RoldePagoLS.txt");
+	rename("Temp1.txt", "RoldePagoLS.txt");
 }

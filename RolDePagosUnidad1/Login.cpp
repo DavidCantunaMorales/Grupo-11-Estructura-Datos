@@ -30,8 +30,6 @@ void Login::ingresar(){
     
     do {
         system("cls");
-        cout << endl;
-        cout << endl;
         cout << "\t\t\tLOGIN DE USUARIO" << endl;
         cout << "\t\t\t----------------" << endl;
         cout << "\n\tUsuario: ";

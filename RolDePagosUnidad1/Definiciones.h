@@ -1,6 +1,17 @@
 #pragma once
 
-// que es un tipo definido por el usuario que está compuesto de un conjunto de constantes con nombre llamadas enumeradores
+enum class Tecla : unsigned {
+	Arriba = 72,
+	Abajo = 80,
+	Izquierda = 77,
+	Derecha = 75,
+	Escape = 27,
+	Enter = 13,
+};
+
+inline constexpr unsigned operator+(Tecla const val) {
+	return static_cast<unsigned>(val);
+}
 
 enum class TipoMensaje {
 	Error,

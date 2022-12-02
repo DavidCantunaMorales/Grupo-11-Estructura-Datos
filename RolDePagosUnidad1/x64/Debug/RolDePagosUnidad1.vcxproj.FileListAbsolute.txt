@@ -1,4 +1,2 @@
 G:\Programas\ProyectoFinalUnidad1\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe
-G:\Programas\RolPagosListaCircularDoble\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe
-G:\Programas\ParaPresentar\Codigo\RolPagosListaCircularDoble\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe
-G:\Programas\Poyecto Rol De Pagos\Codigo\RolPagosListaCircularDoble\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe
+G:\Programas\ProyectoRolPagos3Listas\Codigo\ProyectoFinalUnidad1\RolDePagosUnidad1\x64\Debug\RolDePagosUnidad1.exe

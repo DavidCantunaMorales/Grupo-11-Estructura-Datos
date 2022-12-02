@@ -3,14 +3,15 @@
 #include <iostream>
 
 #define porcentajeIes 0.0945
-#define fondosRe 0.0833
+#define meses 12
 
-RolDePago::RolDePago(Empleado empleado, float sueldo, float horasExtras, float subTotal, float fondosReserva,
+RolDePago::RolDePago(Empleado empleado, float sueldo, float horasExtras, float feriados , float subTotal, float fondosReserva,
 	               float totalIngresos, float retencionIess, float prestamoIess, float totalRetencion, float netoRecibir){
 
 	this->empleado = empleado;
 	this->sueldo = sueldo;
 	this->horasExtras = horasExtras;
+	this->feriados = feriados;
 	this->subTotal = subTotal;
 	this->fondosReserva = fondosReserva;
 	this->totalIngresos = totalIngresos;
@@ -20,12 +21,13 @@ RolDePago::RolDePago(Empleado empleado, float sueldo, float horasExtras, float s
 	this->netoRecibir = netoRecibir;
 }
 
-RolDePago::RolDePago(Empleado empleado, float sueldo, float horasExtras, float prestamoIess) {
+RolDePago::RolDePago(Empleado empleado, float sueldo, float horasExtras, float feriados, float prestamoIess) {
 	this->empleado = empleado;
 	this->sueldo = sueldo;
 	this->horasExtras = horasExtras;
-	this->subTotal = sueldo + horasExtras;
-	this->fondosReserva = subTotal * fondosRe;
+	this->feriados = feriados;
+	this->subTotal = sueldo + horasExtras + feriados;
+	this->fondosReserva = subTotal / meses;
 	this->totalIngresos = subTotal + fondosReserva;
 	this->retencionIess = subTotal * porcentajeIes;
 	this->prestamoIess = prestamoIess;
@@ -43,6 +45,14 @@ void RolDePago::setSueldo(float sueldo1){
 
 float RolDePago::getHorasExtras(){
 	return horasExtras;
+}
+
+float RolDePago::getFeriados() {
+	return feriados;
+}
+
+void RolDePago::setFeriados(float feriado) {
+	feriados = feriado;
 }
 
 void RolDePago::setHorasExtras(float horasE){
@@ -114,6 +124,7 @@ void RolDePago::imprimirDatos(){
 	std::cout << "   INFORMACION ROL DE PAGO" << std::endl;
 	std::cout << "       SUELDO " << sueldo << std::endl;
 	std::cout << "       HORAS EXTRAS " << horasExtras << std::endl;
+	std::cout << "       FERIADOS " << feriados << std::endl;
 	std::cout << "       SUB TOTAL " << subTotal << std::endl;
 	std::cout << "       FONDOS RESERVA " << fondosReserva << std::endl;
 	std::cout << "       TOTAL INGRESOS " << totalIngresos << std::endl;
@@ -128,6 +139,7 @@ std::string RolDePago::toString(){
 	return empleado.getCedula() + "," +
 		std::to_string(sueldo) + "," +
 		std::to_string(horasExtras) + "," +
+		std::to_string(feriados) + "," +
 		std::to_string(subTotal) + "," +
 		std::to_string(fondosReserva) + "," +
 		std::to_string(totalIngresos) + "," +

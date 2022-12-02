@@ -1,15 +1,3 @@
-/**
- * @file RolDePago.h
- * @author Cantunia David
- * @brief Clase RolDePago
- * @version 1
- * @date 2022-11-29
- *
- * @copyright Copyright (c) 2022
- *
- */
-
-
 #pragma once
 #include "Empleado.h"
 
@@ -18,7 +6,7 @@ private:
 	Empleado empleado;
 	float sueldo;
 	float horasExtras;
-	//float feriados;
+	float feriados;
 	float subTotal;
 	float fondosReserva;
 	float totalIngresos;
@@ -28,28 +16,9 @@ private:
 	float netoRecibir;
 
 public:
+	RolDePago(Empleado, float, float, float, float, float, float, float, float, float, float);
 
-	/**
-	 * @brief Constructor RolDePago
-	 * @param empleado
-	 * @param sueldo
-	 * @param horasExtras
-	 * @param subTotal
-	 * @param fondosReserva
-	 * @param totalIngresos
-	 * @param retencionIess
-	 * @param totalRetencion
-	 * @param netoRecibir
-	 */
-	RolDePago(Empleado, float, float, float, float, float, float, float, float, float);
-	/**
-	 * @brief Constructor RolDePago
-	 * @param empleado
-	 * @param sueldo
-	 * @param horasExtras
-	 * @param prestamoIess
-	 */
-	RolDePago(Empleado, float, float, float);
+	RolDePago(Empleado, float, float, float, float);
 
 	RolDePago() = default;
 
@@ -64,6 +33,10 @@ public:
 	float getHorasExtras();
 
 	void setHorasExtras(float);
+
+	float getFeriados();
+
+	void setFeriados(float);
 
 	float getSubTotal();
 

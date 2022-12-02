@@ -1,16 +1,7 @@
-/**
- * @file ControladorRegistro.h
- * @author Cantuña David
- * @brief Clase ControladorRegistro
- * @version 1
- * @date 2022-11-29
- *
- * @copyright Copyright (c) 2022
- *
- */
-
 #pragma once
 #include "ListaCircularDoble.h"
+#include "ListaDoble.h"
+#include "ListaSimple.h"
 
 #include "Empleado.h"
 #include "RolDePago.h"
@@ -18,56 +9,38 @@
 class ControladorRegistro {
 public:
 
-	// Funcion para registrar empleados
-	
-	/**
-	 * @brief registrarEmpleado
-	 */
+	// FUNCIONES DE REGISTRO EMPLEADO Y ROL PAGO
 	void registrarEmpleado();
-
-	/**
-	 * @brief registrarRolPago
-	 */
 	void registrarRolPago();
 
-	/**
-	 * @brief leerEmpleadosLC
-	 * @return ListaCircularDoble<Empleado>
-	 */
-	ListaCircularDoble<Empleado> leerEmpleadosLC();
+	// LISTAS CIRCULARES 
+	ListaCircularDoble<Empleado> leerEmpleadoLC();
+	void guardarEmpleadoLC(Empleado empleadoLC);
+	void eliminarEmpleadoLC();
 
-	/**
-	 * @brief guardarEmpleado
-	 * @param Empleado 
-	 */
-	void guardarEmpleado(Empleado empleadoLC);
 
-	/**
-	 * @brief eliminarEmpleado
-	 */
-	void eliminarEmpleado();
-
-	/**
-	 * @brief leerRolDePagoLC
-	 * @return ListaCircularDoble<RolDePago>
-	 */
 	ListaCircularDoble<RolDePago> leerRolDePagoLC();
+	void guardarRolDePagoLC(RolDePago roldepagoLC);
+	void eliminarRolDePagoLC();
+	void eliminarRolDePagoCompletoLC(std::string cedula);
 
-	/**
-	 * @brief guardarRolDePago
-	 * @param RolDePago
-	 */
-	void guardarRolDePago(RolDePago roldepagoLC);
+	// LISTAS DOBLES
+	ListaDoble<Empleado> leerEmpleadoLD();
+	void guardarEmpleadoLD(Empleado empleadoLD);
+	void eliminarEmpleadoLD();
 
-	/**
-	 * @brief eliminarRolDePago
-	 */
-	void eliminarRolDePago();
+	ListaDoble<RolDePago> leerRolDePagoLD();
+	void guardarRolDePagoLD(RolDePago roldepagoLD);
+	void eliminarRolDePagoLD();
+	void eliminarRolDePagoCompletoLD(std::string cedula);
 
-	/**
-	 * @brief eliminarRolDePagoCompleto
-	 * @param string cedula
-	 */
-	void eliminarRolDePagoCompleto(std::string);
+	// LISTAS SIMPLES
+	ListaSimple<Empleado> leerEmpleadoLS();
+	void guardarEmpleadoLS(Empleado empleadoLD);
+	void eliminarEmpleadoLS();
 
+	ListaSimple<RolDePago> leerRolDePagoLS();
+	void guardarRolDePagoLS(RolDePago roldepagoLD);
+	void eliminarRolDePagoLS();
+	void eliminarRolDePagoCompletoLS(std::string cedula);
 };

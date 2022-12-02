@@ -48,10 +48,10 @@ void Empleado::setCargo(std::string newCargo){
 }
 
 void Empleado::imprimirDatos(){
-	std::cout << "Nombres Completos: " << this->nombre << "\n";
-	std::cout << "Apellidos Completos: " << this->apellido << "\n";
-	std::cout << "Numero de cedula: " << this->cedula << "\n";
-	std::cout << "Cargo en la empresa: " << this->cargo << "\n";
+	std::cout << "NOMBRES COMLETOS: " << this->nombre << "\n";
+	std::cout << "APELLIDOS COMPLETOS: " << this->apellido << "\n";
+	std::cout << "NUMERO DE CEDULA: " << this->cedula << "\n";
+	std::cout << "CARGO EN LA EMPRESA: " << this->cargo << "\n";
 	std::cout << "\n";
 }
 
